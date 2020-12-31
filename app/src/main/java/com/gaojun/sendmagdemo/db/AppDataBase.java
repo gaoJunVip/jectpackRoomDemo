@@ -9,9 +9,12 @@ import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+
 /**
- * @author RD-WJ-GJ
- * @time 2020/12/30 9:49
+ * 数据库
+ *
+ * @author Gaojun
+ * @time 2020/12/31 15:46
  */
 @Database(entities = {User.class,}, version = 3)
 public abstract class AppDataBase extends RoomDatabase {
