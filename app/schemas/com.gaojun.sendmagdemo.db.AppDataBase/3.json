@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "006d89dc0216497940eea79206559137",
+    "identityHash": "cc654fc1f5fe5aab40f6d8ff6471f50a",
     "entities": [
       {
         "tableName": "table_user",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `age` TEXT, `sex` TEXT, `phone` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `age` TEXT, `sex` TEXT, `phone` TEXT, `book_list` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -37,6 +37,12 @@
             "columnName": "phone",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "bookList",
+            "columnName": "book_list",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -52,7 +58,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '006d89dc0216497940eea79206559137')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cc654fc1f5fe5aab40f6d8ff6471f50a')"
     ]
   }
 }

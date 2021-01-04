@@ -16,34 +16,34 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
  * @author Gaojun
  * @time 2020/12/31 15:46
  */
-@Database(entities = {User.class,}, version = 3)
+@Database(entities = {User.class, Book.class}, version = 1)
 public abstract class AppDataBase extends RoomDatabase {
 
-    private static final String DATABASE_NAME = "my_db";
+    private static final String DATABASE_NAME = "my_db.db";
 
     private static AppDataBase databaseInstance;
 
-    private static final Migration migration1_2 = new Migration(1, 2) {
-        @Override
-        public void migrate(@NonNull SupportSQLiteDatabase database) {
-            // 添加一个sex字段
-            database.execSQL("ALTER TABLE table_user ADD COLUMN sex TEXT");
-        }
-    };
-
-    private static final Migration migration2_3 = new Migration(2, 3) {
-        @Override
-        public void migrate(@NonNull SupportSQLiteDatabase database) {
-            // 添加一个phone字段
-            database.execSQL("ALTER TABLE table_user ADD COLUMN phone TEXT");
-        }
-    };
+//    private static final Migration migration1_2 = new Migration(1, 2) {
+//        @Override
+//        public void migrate(@NonNull SupportSQLiteDatabase database) {
+//            // 添加一个sex字段
+//            database.execSQL("ALTER TABLE table_user ADD COLUMN sex TEXT");
+//        }
+//    };
+//
+//    private static final Migration migration2_3 = new Migration(2, 3) {
+//        @Override
+//        public void migrate(@NonNull SupportSQLiteDatabase database) {
+//            // 添加一个phone字段
+//            database.execSQL("ALTER TABLE table_user ADD COLUMN phone TEXT");
+//        }
+//    };
 
     public static synchronized AppDataBase getInstance(Context context) {
         if (databaseInstance == null) {
             databaseInstance = Room.databaseBuilder(context.getApplicationContext(), AppDataBase.class, DATABASE_NAME)
                 .fallbackToDestructiveMigration()
-                .addMigrations(migration1_2, migration2_3)
+//                .addMigrations(migration1_2, migration2_3)
                 .build();
         }
         return databaseInstance;

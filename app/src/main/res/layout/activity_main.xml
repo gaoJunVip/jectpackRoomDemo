@@ -9,6 +9,16 @@
 
     <EditText
         android:id="@+id/et_add"
+        android:hint="请输入姓名"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+<!--    <EditText-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:hint="请输入courseid"-->
+<!--        android:layout_height="wrap_content"/>-->
+
+    <EditText
+        android:id="@+id/et_book_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

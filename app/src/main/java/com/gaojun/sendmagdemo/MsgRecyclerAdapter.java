@@ -1,11 +1,16 @@
 package com.gaojun.sendmagdemo;
 
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gaojun.sendmagdemo.db.Book;
 import com.gaojun.sendmagdemo.db.User;
+import com.gaojun.sendmagdemo.db.UserAndBooks;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -21,6 +26,8 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MsgRecyclerAdapter extends RecyclerView.Adapter<MsgRecyclerAdapter.ViewHolder> {
     private List<User> userList;
 
+    private List<UserAndBooks> userAndBooksList = new ArrayList<>();
+
     @NonNull
     @Override
     public MsgRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -31,16 +38,28 @@ public class MsgRecyclerAdapter extends RecyclerView.Adapter<MsgRecyclerAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MsgRecyclerAdapter.ViewHolder holder, int position) {
-        User user = userList.get(position);
-        if (user != null) {
-            holder.tvTitle.setText(user.name);
-            holder.tvAge.setText(user.age);
+        UserAndBooks userAndBooks = this.userAndBooksList.get(position);
+        if (userAndBooks != null) {
+            holder.tvTitle.setText(userAndBooks.user.getName());
+            holder.tvAge.setText(userAndBooks.user.getAge());
+            List<Book> bookList = userAndBooks.bookList;
+            holder.mListLayout.removeAllViews();
+            if (bookList != null && bookList.size() > 0) {
+                for (int i = 0; i < bookList.size(); i++) {
+                    TextView textView = new TextView(holder.itemView.getContext());
+                    textView.setText(bookList.get(i).getBookName());
+                    textView.setPadding(5, 5, 5, 5);
+                    holder.mListLayout.addView(textView);
+                }
+            } else {
+                Log.e("--->", "bookList == null");
+            }
         }
     }
 
     @Override
     public int getItemCount() {
-        return userList == null ? 0 : userList.size();
+        return userAndBooksList == null ? 0 : userAndBooksList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -49,15 +68,24 @@ public class MsgRecyclerAdapter extends RecyclerView.Adapter<MsgRecyclerAdapter.
 
         private TextView tvAge;
 
+        private LinearLayout mListLayout;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.main_adapter_item_name_tv);
             tvAge = itemView.findViewById(R.id.main_adapter_item_age_tv);
+            mListLayout = itemView.findViewById(R.id.main_adapter_list_layout);
         }
     }
 
     public void setDataNotify(List<User> userList) {
         this.userList = userList;
+        notifyDataSetChanged();
+    }
+
+    public void setDataBookListNotify(List<UserAndBooks> userAndBooks) {
+        userAndBooksList.clear();
+        userAndBooksList.addAll(userAndBooks);
         notifyDataSetChanged();
     }
 }
